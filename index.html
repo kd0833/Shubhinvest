@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Shubhinvest | Trading Platform</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
+    body{background:#000;color:#fff}
+    button,a{cursor:pointer;text-decoration:none}
+
+    #login{display:flex;justify-content:center;align-items:center;height:100vh}
+    .login-box{background:#111;padding:30px;width:320px;border-radius:12px;text-align:center;box-shadow:0 0 20px rgba(255,0,0,0.2)}
+    .login-box h2{color:#ff3b3b;margin-bottom:10px}
+    .login-box input{width:100%;padding:10px;margin:10px 0;border:none;border-radius:6px}
+    .login-box button{width:100%;padding:10px;background:#ff3b3b;border:none;color:#fff;border-radius:6px}
+    .error{color:#ff8080;margin-top:10px}
+
+    #app{display:none}
+
+    header{display:flex;justify-content:space-between;align-items:center;padding:20px;background:#000;border-bottom:1px solid #222}
+    header h1{color:#ff3b3b;font-size:20px}
+    header button{background:#ff3b3b;border:none;padding:8px 14px;color:#fff;border-radius:20px}
+
+    .hero{display:flex;align-items:center;justify-content:space-between;padding:60px;background:radial-gradient(circle at center,#4a0000,#000)}
+    .hero-text{max-width:500px}
+    .hero-text h2{font-size:40px;margin-bottom:15px}
+    .hero-text span{color:#ff3b3b}
+    .hero-text p{color:#ccc;margin-bottom:25px}
+    .hero-text button{padding:12px 20px;border:none;border-radius:25px;margin-right:10px}
+    .btn-primary{background:#ff3b3b;color:#fff}
+    .btn-secondary{background:#111;color:#fff;border:1px solid #ff3b3b}
+    .hero-phone{font-size:120px;opacity:0.2}
+
+    .pricing{padding:60px;text-align:center}
+    .pricing h2{font-size:32px;margin-bottom:10px}
+    .pricing p{color:#aaa;margin-bottom:40px}
+    .plans{display:flex;justify-content:center;gap:30px;flex-wrap:wrap}
+
+    .plan{background:#111;padding:30px;width:280px;border-radius:20px;box-shadow:0 0 20px rgba(255,0,0,0.15)}
+    .plan h3{margin-bottom:10px}
+    .price{font-size:32px;color:#ff3b3b}
+    .old{color:#777;text-decoration:line-through;font-size:14px}
+
+    .plan a{
+      display:inline-block;
+      margin-top:20px;
+      padding:10px 20px;
+      border-radius:20px;
+      background:#ff3b3b;
+      color:#fff;
+      transition:0.3s;
+    }
+    .plan a:hover{
+      transform:scale(1.05);
+      box-shadow:0 0 15px #ff3b3b;
+    }
+
+    .popular{background:linear-gradient(180deg,#4a0000,#111);transform:scale(1.05)}
+    .badge{background:#ff3b3b;color:#fff;padding:4px 10px;border-radius:10px;font-size:12px;margin-bottom:10px;display:inline-block}
+
+    @media(max-width:900px){
+      .hero{flex-direction:column;text-align:center}
+      .hero-phone{display:none}
+    }
+  </style>
+</head>
+
+<body>
+
+<div id="login">
+  <div class="login-box">
+    <h2>Shubhinvest</h2>
+    <p>Login to continue</p>
+    <input type="email" id="email" placeholder="Email" />
+    <input type="password" id="password" placeholder="Password" />
+    <button onclick="login()">Login</button>
+    <p id="error" class="error"></p>
+  </div>
+</div>
+
+<div id="app">
+
+<header>
+  <h1>Shubhinvest</h1>
+  <button onclick="logout()">Logout</button>
+</header>
+
+<section class="hero">
+  <div class="hero-text">
+    <h2>Trade Smarter with <span>Shubinvest</span> Guidance</h2>
+    <p>Research-backed strategies, disciplined frameworks and daily support so you trade with clarity.</p>
+    <button class="btn-primary">Start Trading</button>
+    <button class="btn-secondary" onclick="pricing.scrollIntoView({behavior:'smooth'})">Explore Plans</button>
+  </div>
+  <div class="hero-phone">📱</div>
+</section>
+
+<section class="pricing" id="pricing">
+  <h2>Choose the Plan That Powers Your <span style="color:#ff3b3b">Trading</span></h2>
+  <p>Reliable market insights and backtested signals</p>
+
+  <div class="plans">
+
+    <div class="plan">
+      <h3>Monthly</h3>
+      <p class="price">₹1000</p>
+      <p class="old">₹1200</p>
+      <a href="https://forms.gle/K7jPcjzm9Qf18RyQA" target="_blank">Subscribe Now</a>
+    </div>
+
+    <div class="plan popular">
+      <div class="badge">Most Popular</div>
+      <h3>Quarterly</h3>
+      <p class="price">₹3000</p>
+      <p class="old">₹3500</p>
+      <a href="https://forms.gle/K7jPcjzm9Qf18RyQA" target="_blank">Subscribe Now</a>
+    </div>
+
+    <div class="plan">
+      <h3>Yearly</h3>
+      <p class="price">₹5000</p>
+      <p class="old">₹7500</p>
+      <a href="https://forms.gle/K7jPcjzm9Qf18RyQA" target="_blank">Subscribe Now</a>
+    </div>
+
+  </div>
+
+  <p style="margin-top:30px;font-size:12px;color:#777">
+    *By selecting any plan, you agree to our Terms & Conditions
+  </p>
+</section>
+
+</div>
+
+<script>
+const loginDiv=document.getElementById('login');
+const app=document.getElementById('app');
+
+function login(){
+  if(!email.value || !password.value){
+    error.innerText='All fields required';
+    return;
+  }
+  localStorage.setItem('login','1');
+  showApp();
+}
+
+function logout(){
+  localStorage.removeItem('login');
+  app.style.display='none';
+  loginDiv.style.display='flex';
+}
+
+function showApp(){
+  loginDiv.style.display='none';
+  app.style.display='block';
+}
+
+if(localStorage.getItem('login')) showApp();
+</script>
+
+</body>
+</html>
